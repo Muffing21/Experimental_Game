@@ -29,19 +29,15 @@ public class PlayerMovement : MonoBehaviour, IMovementObserver
     void Update()
     {
         isGrounded = Physics2D.OverlapBox(currentHeight.position, groundCheckBox, 0f, groundLayer);
-        print(currentHeight.position);
-
     }
 
     public void OnMove(Vector2 direction)
     {
-        print("tried walking");
         rb.velocity = new Vector2(direction.x * moveSpeed, rb.velocity.y);
     }
 
     public void OnJump()
     {   
-        print(isGrounded);
         if (isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
