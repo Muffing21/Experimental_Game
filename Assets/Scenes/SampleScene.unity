@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96ef6ae11d7241346b21f4aa21843f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  greenPrefab: {fileID: 5468094289867777946, guid: 7567c53a09221d94eb489bdc47e1e3f3, type: 3}
   player: {fileID: 301215672}
 --- !u!4 &37931993
 Transform:
