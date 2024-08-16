@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour, IMovementObserver
 
     public float jumpForce;
     public Transform currentHeight;
-    public float groundCheckRadius;
+    public Vector2 groundCheckBox = new Vector2(0.5f, -0.3f);
     public LayerMask groundLayer;
 
     private Rigidbody2D rb;
@@ -28,20 +28,32 @@ public class PlayerMovement : MonoBehaviour, IMovementObserver
     }
     void Update()
     {
-        isGrounded = Physics2D.OverlapCircle(currentHeight.position, groundCheckRadius, groundLayer);
+        isGrounded = Physics2D.OverlapBox(currentHeight.position, groundCheckBox, 0f, groundLayer);
+        print(currentHeight.position);
 
     }
 
     public void OnMove(Vector2 direction)
     {
+        print("tried walking");
         rb.velocity = new Vector2(direction.x * moveSpeed, rb.velocity.y);
     }
 
     public void OnJump()
-    {
+    {   
+        print(isGrounded);
         if (isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
     }
+
+    private void OnDrawGizmos()
+{
+    if (currentHeight != null)
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(currentHeight.position, groundCheckBox);
+    }
+}
 }

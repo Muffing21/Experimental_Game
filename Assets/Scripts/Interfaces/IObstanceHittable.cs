@@ -1,0 +1,3 @@
+interface IObstacleHittable{
+    void OnObstacleHit();
+}

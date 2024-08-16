@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class HotkeyBinding : MonoBehaviour
 {
     public InputActionAsset inputActions;
-    private Dictionary<string, InputAction> actionBindings;
+    public Dictionary<string, InputAction> actionBindings;
 
     //Using the observer pattern for potential future additions
     private List<IColorObserver> colorObservers = new List<IColorObserver>();
@@ -31,10 +31,21 @@ public class HotkeyBinding : MonoBehaviour
         actionBindings["Action2"].performed += ctx => NotifyColorObservers(Color.green);
         actionBindings["Action3"].performed += ctx => NotifyColorObservers(Color.blue);
 
-        actionBindings["Move"].performed += ctx => NotifyMovementObservers(ctx.ReadValue<Vector2>());
+        actionBindings["MoveLeft"].performed += ctx => NotifyMovementObservers(MovementXConverter());
+        actionBindings["MoveRight"].performed += ctx => NotifyMovementObservers(MovementXConverter());
         actionBindings["Jump"].performed += ctx => NotifyJumpObservers();
 
         
+    }
+
+    void Update(){
+
+        if(actionBindings["MoveLeft"].IsPressed()){
+            NotifyMovementObservers(MovementXConverter());
+        }
+        if(actionBindings["MoveRight"].IsPressed()){
+            NotifyMovementObservers(MovementXConverter());
+        }
     }
 
     // Update is called once per frame
@@ -104,6 +115,23 @@ public class HotkeyBinding : MonoBehaviour
         {
             observer.OnJump();
         }
+    }
+
+    #endregion
+
+    #region Helper Functions
+    
+    private Vector2 MovementXConverter(){
+        float moveX = 0f;
+        if(actionBindings["MoveLeft"].ReadValue<float>() > 0){
+            moveX -= 1;
+        }
+        if(actionBindings["MoveRight"].ReadValue<float>() > 0){
+            moveX += 1;
+        }
+
+        Vector2 direction = new Vector2(moveX, 0);
+        return direction;
     }
 
     #endregion
