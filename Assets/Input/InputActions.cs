@@ -53,13 +53,40 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""c9fd60f3-7e91-4be3-981f-488dc83835dc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""a05b4380-28f8-4570-9093-a83f54ac9507"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""de45301d-2ee2-47a2-ba83-773aec80a158"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
                     ""id"": ""7f7d10bc-b9bc-4f59-9106-2580a8879aff"",
-                    ""path"": ""<Keyboard>/q"",
+                    ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -70,7 +97,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""dc1fc239-e5db-494a-b2d3-a29443f4631d"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""path"": ""<Keyboard>/g"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -81,11 +108,44 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0226fd94-4963-499f-a66d-8de3d0a1a795"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/b"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Action3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6dd97044-0c06-4f45-900a-3e2da499a6f2"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f64ab1fb-e130-4ff0-93b2-c30866407b0c"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8ce9d141-d77d-4ddd-b1b1-45a4a83d946e"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -99,6 +159,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Gameplay_Action1 = m_Gameplay.FindAction("Action1", throwIfNotFound: true);
         m_Gameplay_Action2 = m_Gameplay.FindAction("Action2", throwIfNotFound: true);
         m_Gameplay_Action3 = m_Gameplay.FindAction("Action3", throwIfNotFound: true);
+        m_Gameplay_MoveLeft = m_Gameplay.FindAction("MoveLeft", throwIfNotFound: true);
+        m_Gameplay_MoveRight = m_Gameplay.FindAction("MoveRight", throwIfNotFound: true);
+        m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -163,6 +226,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Action1;
     private readonly InputAction m_Gameplay_Action2;
     private readonly InputAction m_Gameplay_Action3;
+    private readonly InputAction m_Gameplay_MoveLeft;
+    private readonly InputAction m_Gameplay_MoveRight;
+    private readonly InputAction m_Gameplay_Jump;
     public struct GameplayActions
     {
         private @InputActions m_Wrapper;
@@ -170,6 +236,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Action1 => m_Wrapper.m_Gameplay_Action1;
         public InputAction @Action2 => m_Wrapper.m_Gameplay_Action2;
         public InputAction @Action3 => m_Wrapper.m_Gameplay_Action3;
+        public InputAction @MoveLeft => m_Wrapper.m_Gameplay_MoveLeft;
+        public InputAction @MoveRight => m_Wrapper.m_Gameplay_MoveRight;
+        public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -188,6 +257,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Action3.started += instance.OnAction3;
             @Action3.performed += instance.OnAction3;
             @Action3.canceled += instance.OnAction3;
+            @MoveLeft.started += instance.OnMoveLeft;
+            @MoveLeft.performed += instance.OnMoveLeft;
+            @MoveLeft.canceled += instance.OnMoveLeft;
+            @MoveRight.started += instance.OnMoveRight;
+            @MoveRight.performed += instance.OnMoveRight;
+            @MoveRight.canceled += instance.OnMoveRight;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -201,6 +279,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Action3.started -= instance.OnAction3;
             @Action3.performed -= instance.OnAction3;
             @Action3.canceled -= instance.OnAction3;
+            @MoveLeft.started -= instance.OnMoveLeft;
+            @MoveLeft.performed -= instance.OnMoveLeft;
+            @MoveLeft.canceled -= instance.OnMoveLeft;
+            @MoveRight.started -= instance.OnMoveRight;
+            @MoveRight.performed -= instance.OnMoveRight;
+            @MoveRight.canceled -= instance.OnMoveRight;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -223,5 +310,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnAction1(InputAction.CallbackContext context);
         void OnAction2(InputAction.CallbackContext context);
         void OnAction3(InputAction.CallbackContext context);
+        void OnMoveLeft(InputAction.CallbackContext context);
+        void OnMoveRight(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
 }
