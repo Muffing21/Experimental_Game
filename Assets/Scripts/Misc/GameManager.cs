@@ -23,9 +23,6 @@ public class GameManager : MonoBehaviour
             Instance = this;
 
             greenPrefab = Resources.Load<GameObject>("Prefabs/Obstacles/Greenblock");
-            if(greenPrefab != null){
-                print("green prefab isnt null");
-            }
         }
     }
 
