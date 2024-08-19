@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     LinkedPool<GameObject> greenObstacle; 
     public static GameManager Instance {get; private set;}
     [SerializeField] SpriteRenderer player; 
-    const float xBounds = 4f;
+    const float xBounds = 10f;
     const float yBounds = 7f;
     public float HorizontalLowerBound { get { return -xBounds; } }
     public float HorizontalUpperBound {  get { return xBounds; } }
@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     #region Spawning Stuff
     
     private void SpawnObstacle(){
-        greenObstacle.Get().transform.position = new Vector2(UnityEngine.Random.Range(-7f, 7f), 1);
+        greenObstacle.Get().transform.position = new Vector2(UnityEngine.Random.Range(HorizontalLowerBound+1, HorizontalUpperBound-1), VerticalUpperBound);
         
     }
     IEnumerator StartObstacleSpawn(){
