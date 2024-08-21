@@ -18,9 +18,7 @@ public class ObstacleMovement : MonoBehaviour
     {
         transform.Translate(moveDirection * speed * Time.deltaTime);
 
-        if(transform.position.y < GameManager.Instance.VerticalLowerBound){
-            GameManager.Instance.ReturnObstacles(gameObject);
-        }
+        
     }
 
     public void ObstacleMoveDirection(Vector3 direction)

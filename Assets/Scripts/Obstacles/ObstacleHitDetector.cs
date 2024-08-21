@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleHitDetector : MonoBehaviour
+public class ObstacleHitDetector : MonoBehaviour, IObstacleHittable
 {
+    ObstacleBehavior obstacleBehavior;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,5 +15,9 @@ public class ObstacleHitDetector : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnObstacleHit(){
+        obstacleBehavior.NotifyObstacleHit();
     }
 }
